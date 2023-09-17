@@ -19,6 +19,7 @@ int _printf(const char *format, ...)
 		if (*format == '%')
 		{
 			format++;
+
 			if (*format == 'c')
 			{
 				char c = va_arg(args, int);
@@ -29,6 +30,7 @@ int _printf(const char *format, ...)
 			{
 				char *str = va_arg(args, char *);
 				int i = 0;
+
 				while (str[i])
 				{
 					write(1, &str[i], 1);
@@ -47,10 +49,11 @@ int _printf(const char *format, ...)
 			write(1, format, 1);
 			printed_chars++;
 		}
+
 		format++;
 	}
 
 	va_end(args);
 
-	return printed_chars;
+	return (printed_chars);
 }
