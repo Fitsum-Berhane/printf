@@ -3,8 +3,40 @@
 #include <unistd.h>
 
 /**
+ * write_char - Helper function to write a single character
+ * @c: Character to write
+ *
+ * Return: Number of characters written
+ */
+int write_char(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
+/**
+ * write_string - Helper function to write a string
+ * @str: String to write
+ *
+ * Return: Number of characters written
+ */
+int write_string(char *str)
+{
+	int i = 0;
+
+	while (str[i])
+	{
+		write_char(str[i]);
+		i++;
+	}
+
+	return (i);
+}
+
+/**
  * _printf - Custom printf function
  * @format: Format string
+ *
  * Return: Number of characters printed
  */
 int _printf(const char *format, ...)
@@ -21,35 +53,14 @@ int _printf(const char *format, ...)
 			format++;
 
 			if (*format == 'c')
-			{
-				char c = va_arg(args, int);
-
-				write(1, &c, 1);
-				printed_chars++;
-			}
+				printed_chars += write_char(va_arg(args, int));
 			else if (*format == 's')
-			{
-				char *str = va_arg(args, char *);
-				int i = 0;
-
-				while (str[i])
-				{
-					write(1, &str[i], 1);
-					i++;
-					printed_chars++;
-				}
-			}
+				printed_chars += write_string(va_arg(args, char *));
 			else if (*format == '%')
-			{
-				write(1, "%", 1);
-				printed_chars++;
-			}
+				printed_chars += write_char('%');
 		}
 		else
-		{
-			write(1, format, 1);
-			printed_chars++;
-		}
+			printed_chars += write_char(*format);
 
 		format++;
 	}
