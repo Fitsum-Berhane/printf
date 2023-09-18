@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
-
+#include <stdio.h> 
 /**
  * write_char - Helper function to write a single character
  * @c: Character to write
@@ -58,6 +58,14 @@ int _printf(const char *format, ...)
 				printed_chars += write_string(va_arg(args, char *));
 			else if (*format == '%')
 				printed_chars += write_char('%');
+			else if (*format == 'd' || *format == 'i')
+			{
+				int num = va_arg(args, int);
+				char num_str[12];
+
+				sprintf(num_str, "%d", num);
+				printed_chars += write_string(num_str);
+			}
 		}
 		else
 			printed_chars += write_char(*format);
