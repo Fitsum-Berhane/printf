@@ -61,10 +61,10 @@ int _printf(const char *format, ...)
 			else if (*format == 'd' || *format == 'i')
 			{
 				int num = va_arg(args, int);
-				char num_str[12]; 
+				char num_str[12];
 
 				sprintf(num_str, "%d", num);
-			       	printed_chars += write_string(num_str);
+				printed_chars += write_string(num_str);
 			}
 		}
 		else
