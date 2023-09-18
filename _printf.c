@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
-#include <stdio.h> 
+#include <stdio.h>
 /**
  * write_char - Helper function to write a single character
  * @c: Character to write
