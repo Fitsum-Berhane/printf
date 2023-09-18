@@ -61,8 +61,8 @@ int _printf(const char *format, ...)
 			else if (*format == 'd' || *format == 'i')
 			{
 				int num = va_arg(args, int);
-				// Convert the integer to a string using a helper function
-				char num_str[12]; // Assuming a maximum of 12 digits
+				char num_str[12]; 
+
 				sprintf(num_str, "%d", num);
 			       	printed_chars += write_string(num_str);
 			}
