@@ -58,6 +58,14 @@ int _printf(const char *format, ...)
 				printed_chars += write_string(va_arg(args, char *));
 			else if (*format == '%')
 				printed_chars += write_char('%');
+			else if (*format == 'd' || *format == 'i')
+			{
+				int num = va_arg(args, int);
+				// Convert the integer to a string using a helper function
+				char num_str[12]; // Assuming a maximum of 12 digits
+				sprintf(num_str, "%d", num);
+			       	printed_chars += write_string(num_str);
+			}
 		}
 		else
 			printed_chars += write_char(*format);
@@ -68,12 +76,4 @@ int _printf(const char *format, ...)
 	va_end(args);
 
 	return (printed_chars);
-}
-else if (*format == 'd' || *format == 'i')
-{
-    int num = va_arg(args, int);
-    // Convert the integer to a string using a helper function
-    char num_str[12]; // Assuming a maximum of 12 digits
-    sprintf(num_str, "%d", num);
-    printed_chars += write_string(num_str);
 }
