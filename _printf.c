@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <stdio.h>
+
 /**
  * write_char - Helper function to write a single character
  * @c: Character to write
@@ -23,14 +24,46 @@ int write_char(char c)
 int write_string(char *str)
 {
 	int i = 0;
+	int printed_chars = 0;
 
 	while (str[i])
 	{
-		write_char(str[i]);
+		printed_chars += write_char(str[i]);
 		i++;
 	}
 
-	return (i);
+	return (printed_chars);
+}
+
+/**
+ * write_binary - Converts unsigned integer to binary and writes it to stdout
+ * @num: The unsigned integer to convert to binary
+ *
+ * Return: The number of characters written
+ */
+int write_binary(unsigned int num)
+{
+	int binary[32];
+	int i = 0;
+	int j;
+	int printed_chars = 0;
+
+	if (num == 0)
+		return (write_char('0'));
+
+	while (num > 0)
+	{
+		binary[i] = num % 2;
+		num = num / 2;
+		i++;
+	}
+
+	for (j = i - 1; j >= 0; j--)
+	{
+		printed_chars += write_char(binary[j] + '0');
+	}
+
+	return (printed_chars);
 }
 
 /**
@@ -66,6 +99,12 @@ int _printf(const char *format, ...)
 				sprintf(num_str, "%d", num);
 				printed_chars += write_string(num_str);
 			}
+			else if (*format == 'b')
+			{
+				unsigned int num = va_arg(args, unsigned int);
+
+				printed_chars += write_binary(num);
+			}
 		}
 		else
 			printed_chars += write_char(*format);
@@ -74,6 +113,5 @@ int _printf(const char *format, ...)
 	}
 
 	va_end(args);
-
 	return (printed_chars);
 }
