@@ -67,6 +67,23 @@ int write_binary(unsigned int num)
 }
 
 /**
+ * write_integer - Converts an integer to a string and writes it to stdout
+ * @num: The integer to write
+ *
+ * Return: The number of characters written
+ */
+int write_integer(int num)
+{
+	char num_str[12];
+	int printed_chars;
+
+	sprintf(num_str, "%d", num);
+	printed_chars = write_string(num_str);
+
+	return (printed_chars);
+}
+
+/**
  * _printf - Custom printf function
  * @format: Format string
  *
@@ -92,19 +109,11 @@ int _printf(const char *format, ...)
 			else if (*format == '%')
 				printed_chars += write_char('%');
 			else if (*format == 'd' || *format == 'i')
-			{
-				int num = va_arg(args, int);
-				char num_str[12];
-
-				sprintf(num_str, "%d", num);
-				printed_chars += write_string(num_str);
-			}
+				printed_chars += write_integer(va_arg(args, int));
 			else if (*format == 'b')
-			{
-				unsigned int num = va_arg(args, unsigned int);
-
-				printed_chars += write_binary(num);
-			}
+				printed_chars += write_binary(va_arg(args, unsigned int));
+			else
+				printed_chars += write_char('%');
 		}
 		else
 			printed_chars += write_char(*format);
